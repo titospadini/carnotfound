@@ -17,6 +17,7 @@
 # =============================================================
 
 import platform
+import time
 import numpy as np
 import cv2 as cv
 
@@ -26,9 +27,12 @@ print 'Python versao:', platform.python_version()
 print 'OpenCV versao:', cv.__version__
 #OpenCV versao: 4.0.0-pre
 
-webcam = cv.VideoCapture(0)
+webcam = cv.VideoCapture(0) #objeto captura de frames
+x0 = 0
+y0 = 0
 
 while(True):
+	
     # Captura de frames
     s, rgb_frame = webcam.read()
     rgb_frame = cv.flip(rgb_frame, 1) # Espelha a imagem
@@ -43,6 +47,22 @@ while(True):
 
     # Exibe os frames resultantes 
     cv.imshow('Resultado', bin_red)
+    M = cv.moments(bin_red)    
+    if M['m00'] > 0:
+    	x = int(M['m10']/M['m00'])
+    	y = int(M['m01']/M['m00'])
+    	if x > x0:
+    		print 'direita'
+    	elif x < x0:
+    		print 'esquerda'
+    	else:
+    		print 'parado'
+    	x0 = x
+    	y0 = y
+    else:
+    	print 'Objeto nao encontrado'
+
+    #time.sleep(0.3)
 
     #Fecha o loop - interrompe processo com 'q'
     if cv.waitKey(1) & 0xFF == ord('q'):
@@ -50,4 +70,4 @@ while(True):
     
 #Encerrando processo
 webcam.release() # Dispensa o uso da webcam
-cv2.destroyAllWindows() # Fecha todas a janelas abertas
+cv.destroyAllWindows() # Fecha todas a janelas abertas
