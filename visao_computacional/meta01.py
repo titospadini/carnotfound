@@ -8,6 +8,8 @@
 # =============================================================
 #
 # DESCRICAO: meta01.py 
+# Python versao: 2.7.12
+# OpenCV versao: 4.0.0-pre
 #
 # Identifica um objeto de interesse na frente da camera e 
 # movimenta um servo-motor de acordo com o movimento do objeto
