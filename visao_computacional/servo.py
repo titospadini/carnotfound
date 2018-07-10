@@ -41,6 +41,7 @@ for i in range(3):
         print('180 graus')
         SetAngle(180)
 
+# Retorno ao centro de alinhamento do servo
 print('retornando ao centro...')
 SetAngle(90)
 
