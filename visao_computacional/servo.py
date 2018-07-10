@@ -40,3 +40,4 @@ for i in range(3):
 
 # Fim do processo
 pwm.stop()
+GPIO.cleanup()
