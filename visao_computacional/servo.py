@@ -34,10 +34,17 @@ def SetAngle(angle):
         pwm.ChangeDutyCycle(0)
 
 # Loop de teste para girar o servo de 0 a 180 graus 3 vezes
+print('inicio')
 for i in range(3):
+        print('0 graus')
         SetAngle(0)
+        print('180 graus')
         SetAngle(180)
 
+print('retornando ao centro...')
+SetAngle(90)
+
 # Fim do processo
+print('fim')
 pwm.stop()
 GPIO.cleanup()
