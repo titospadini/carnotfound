@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 # =============================================================
 #
 #                       -- ROBOCAR --
@@ -23,7 +24,7 @@ import time
 
 # Substitua pela URL obtida pelo aplicativo IP Webcam (Android), 
 # com IP:porta e mantendo o '/shot.jpg' ao final.
-url='http://192.168.1.30:8080/shot.jpg'
+url='http://172.17.60.48:8080/shot.jpg'
 
 x0 = 0
 y0 = 0
@@ -47,8 +48,8 @@ while True:
     (blue_frame, green_frame, red_frame) = cv2.split(rgb_frame)
 
     diffframe_red = cv2.subtract(red_frame, gray_frame)   
-    diffframe_red = cv2.medianBlur(diffframe_red, 3)
-    T_red, bin_red = cv2.threshold(diffframe_red, 40, 255, cv2.THRESH_BINARY)
+    diffframe_red = cv2.medianBlur(diffframe_red, 15)
+    T_red, bin_red = cv2.threshold(diffframe_red, 50, 255, cv2.THRESH_BINARY)
 	
 	# Exibe a imagem capturada
     #cv2.imshow('IPWebcam',rgb_frame)
