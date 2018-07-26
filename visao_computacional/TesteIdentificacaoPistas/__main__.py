@@ -12,14 +12,14 @@ import cv2;
 import numpy as np;
  
 #Lendo a imagem em tons de cinza
-imagem = cv2.imread("d.jpg", cv2.IMREAD_GRAYSCALE)
+imagem = cv2.imread("b.jpg", cv2.IMREAD_GRAYSCALE)
 
 #cortando a imagem pela metade(estabelecendo um limite superior)
 height, width = imagem.shape
 imagem = imagem[int(0.50*height):height, 0:width]
 
 #binarizando a imagem
-thresh = 180
+thresh = 210
 th, imagem = cv2.threshold(imagem, thresh, 255, cv2.THRESH_BINARY_INV)
 
 #invertendo a binarização para que seja possível "pintar" a pista
