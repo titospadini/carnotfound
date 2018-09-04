@@ -26,14 +26,14 @@ import time
 objCarHandler = CarHandler(8, 16, 10, 18, 12) #forwardA, forwardB, backwordsA, backwordsB, direction
 #webcam = cv2.VideoCapture(0)
 
-objCarHandler.forward()
-time.sleep(2)
-objCarHandler.stop()
-time.sleep(1)
-objCarHandler.backward()
-time.sleep(2)
+#objCarHandler.forward()
+#time.sleep(2)
+#objCarHandler.stop()
+#time.sleep(1)
+#objCarHandler.backward()
+#time.sleep(2)
 objCarHandler.neutral()
-time.sleep(1)
+#time.sleep(1)
 objCarHandler.cleanupPins()
 
 #while True:
