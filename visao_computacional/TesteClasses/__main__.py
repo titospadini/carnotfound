@@ -16,9 +16,9 @@
 # =============================================================
 
 from CarHandler import CarHandler
-from ImageHandler import ImageHandler
+#from ImageHandler import ImageHandler
 import platform
-import cv2
+#import cv2
 import time
 
 #instanciando os objetos (o construtor da classe CarHandler precisa das portas do GPIO que serão utilizadas)
@@ -27,13 +27,14 @@ objCarHandler = CarHandler(8, 16, 10, 18, 12) #forwardA, forwardB, backwordsA, b
 #webcam = cv2.VideoCapture(0)
 
 objCarHandler.forward()
-time.sleep(5)
+time.sleep(2)
 objCarHandler.stop()
 time.sleep(1)
 objCarHandler.backward()
-time.sleep(5)
+time.sleep(2)
 objCarHandler.neutral()
 time.sleep(1)
+objCarHandler.cleanupPins()
 
 #while True:
 	#pegando o frame atual da webcam
