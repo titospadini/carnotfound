@@ -55,7 +55,7 @@ rectMinBar = 'Area minima do retangulo'
 cv.createTrackbar(rectMinBar, wnd,80,5000,nothing)
 
 rectMaxBar = 'Area maxima do retangulo'
-cv.createTrackbar(rectMaxBar, wnd,2000,5000,nothing)
+cv.createTrackbar(rectMaxBar, wnd,2000,15000,nothing)
 
 
 #nomes das janelas

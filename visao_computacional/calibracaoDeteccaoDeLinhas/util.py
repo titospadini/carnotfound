@@ -47,6 +47,26 @@ def desenhaLinhas(img,cnt):
     except:
         pass
 
+def anguloDoRetangulo(retangulo):
+    #retângulo armazena ângulos de uma forma que é necessário fazer uns ajustes para conseguir o àngulo corretamente
+    largura = retangulo[1][0]
+    altura = retangulo[1][1]
+    angulo = retangulo[2]
+    if largura < altura:
+        angulo = 90-angulo
+    if angulo<0:
+        angulo = abs(angulo)
+    return round(angulo,2)
+        
+def escreveTexto(img,texto,coord):
+	"""escreve texto na imagem"""
+	fonte = cv.FONT_HERSHEY_PLAIN
+	escala = 2
+	cor = (0,255,0)
+	linha = 2
+
+	cv.putText(img,texto, coord, fonte, escala, cor, linha)
+        
 def desenhaRetangulos(imgOriginal,thresh,contourAreaMin,contourAreaMax):
     """Recebe a imgem original e uma 
     """
@@ -57,7 +77,8 @@ def desenhaRetangulos(imgOriginal,thresh,contourAreaMin,contourAreaMax):
         _, contours, _ = cv.findContours(thresh,cv.RETR_EXTERNAL,cv.CHAIN_APPROX_SIMPLE)
     except:
         contours, _ = cv.findContours(thresh,cv.RETR_EXTERNAL,cv.CHAIN_APPROX_SIMPLE)
-        
+    
+    
     cor = (0,0,255)#cor do retangulo que encompassa semaforo 
     
     #para cada contorno detectado encontra um bounding box
@@ -65,7 +86,9 @@ def desenhaRetangulos(imgOriginal,thresh,contourAreaMin,contourAreaMax):
         areaContour = cv.contourArea(contour)
         if areaContour>contourAreaMin and areaContour<contourAreaMax:
             retangulo = cv.minAreaRect(contour)
-            
+            coordY = (int)(retangulo[0][0])
+            coordX = (int)(retangulo[0][1])
+            escreveTexto(img,(str)(anguloDoRetangulo(retangulo)),(coordY,coordX))
             #lida com problemas de versao
             try:
                 caixa = cv.boxPoints(retangulo)
