@@ -103,7 +103,7 @@ while(True):
     
 
     #realiza detecção de bordas por Harris Corner Detection
-    harris = cv.cornerHarris(gray,harris_blockSize,harris_kSize,harris_k)
+    harris = cv.cornerHarris(thresh,harris_blockSize,harris_kSize,harris_k)
     imgHarris = thresh.copy()
     
     #pinta de cinza as bordas
