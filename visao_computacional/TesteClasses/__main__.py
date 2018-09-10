@@ -26,6 +26,7 @@ import time
 objCarHandler = CarHandler(8, 16, 10, 18, 12) #forwardA, forwardB, backwordsA, backwordsB, direction
 #webcam = cv2.VideoCapture(0)
 
+objCarHandler.setAngle(90)
 objCarHandler.forward()
 time.sleep(2)
 objCarHandler.stop()

@@ -33,14 +33,17 @@ class CarHandler():
 
 	# O construtor da classe recebe quais serão os pinos que vão 
 	# acionar o GPIO
-	def __init__(self, fa, fb, ba, bb, d):
+	def __init__(self):
 		# Essas variáveis precisam ser globais pq serão usadas 
 		# nas outras funções.
 		# Estou definindo de forma fixa a pinagem, pois não é 
 		# a intenção que isso mude depois
-		self.IN1 = 12
+		# Pino de controle da ponte HH:
+		self.IN1 = 12 
 		self.IN2 = 16
-		# self.direction = d # Not defined yet
+
+		# Pino para PWM do servomotor de direção:
+		self.dir = 8
 
 		# Configurando o GPIO e definindo os pinos de saída:
 		GPIO.setwarnings(False)
@@ -51,12 +54,12 @@ class CarHandler():
 		#self.pwm = GPIO.PWM(self.direction, 50)
 		#self.pwm.start(0)
 
-	# Vira o servomotor em um ângulo específico
-	#def setAngle(self, angle):
-#		print "Virando ", angle
-#		duty = angle / 18.0 + 2.0
-#		GPIO.output(self.direction, GPIO.HIGH)
-#		self.pwm.ChangeDutyCycle(duty)
+	# Vira o servomotor em um ângulo específico dado em graus
+	def setAngle(self, angle):
+		print "Virando ", angle
+		duty = angle / 18.0 + 2.0
+		GPIO.output(self.dir, GPIO.HIGH)
+		self.pwm.ChangeDutyCycle(duty)
 
 	# Função para mover o carrinho pra frente
 	def forward(self):
