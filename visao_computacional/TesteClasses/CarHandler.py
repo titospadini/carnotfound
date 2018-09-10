@@ -50,9 +50,9 @@ class CarHandler():
 		GPIO.setmode(GPIO.BOARD)
 		GPIO.setup(self.IN1, GPIO.OUT)
 		GPIO.setup(self.IN2, GPIO.OUT)
-		#GPIO.setup(self.direction, GPIO.OUT)
-		#self.pwm = GPIO.PWM(self.direction, 50)
-		#self.pwm.start(0)
+		GPIO.setup(self.dir, GPIO.OUT)
+		self.pwm = GPIO.PWM(self.dir, 50)
+		self.pwm.start(0)
 
 	# Vira o servomotor em um ângulo específico dado em graus
 	def setAngle(self, angle):
