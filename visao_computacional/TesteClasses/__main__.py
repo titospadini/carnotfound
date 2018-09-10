@@ -34,6 +34,7 @@ camera.framerate = 25 # Taxa de captura de quadros
 camera.start_recording('/home/pi/Desktop/Pedro/video_teste_02.h264')
 
 objCarHandler.setAngle(90)
+time.sleep(10) # Espera 10 segundoa antes de sair andando para dar tempo de eu sair lá fora
 objCarHandler.forward()
 time.sleep(2)
 objCarHandler.setAngle(0)
@@ -41,6 +42,8 @@ time.sleep(2)
 objCarHandler.setAngle(90)
 time.sleep(1)
 objCarHandler.setAngle(180)
+time.sleep(1)
+objCarHandler.setAngle(90)
 time.sleep(2)
 objCarHandler.stop()
 time.sleep(1)
