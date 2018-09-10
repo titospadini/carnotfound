@@ -23,7 +23,7 @@ import time
 
 #instanciando os objetos (o construtor da classe CarHandler precisa das portas do GPIO que serão utilizadas)
 #objImageHandler = ImageHandler()
-objCarHandler = CarHandler(8, 16, 10, 18, 12) #forwardA, forwardB, backwordsA, backwordsB, direction
+objCarHandler = CarHandler()
 #webcam = cv2.VideoCapture(0)
 
 objCarHandler.setAngle(90)
