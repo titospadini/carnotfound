@@ -16,15 +16,22 @@
 # =============================================================
 
 from CarHandler import CarHandler
+from picamera import PiCamera
 #from ImageHandler import ImageHandler
 import platform
 #import cv2
 import time
 
 #instanciando os objetos (o construtor da classe CarHandler precisa das portas do GPIO que serão utilizadas)
-#objImageHandler = ImageHandler()
+#objImageHandler = ImageHandler() # Objeto para ImageHandler
 objCarHandler = CarHandler()
 #webcam = cv2.VideoCapture(0)
+
+camera = PiCamera() # Objeto para a Pi Camera
+camera.rotation = 180 # Rotação da câmera porque ela está de ponta cabeça
+camera.framerate = 25 # Taxa de captura de quadros
+
+camera.start_recording('/home/pi/Desktop/Pedro/video_teste_02.h264')
 
 objCarHandler.setAngle(90)
 objCarHandler.forward()
@@ -35,7 +42,12 @@ objCarHandler.backward()
 time.sleep(2)
 objCarHandler.neutral()
 time.sleep(1)
+
+# Libera os pinos
 objCarHandler.cleanupPins()
+
+# Finaliza gravação
+camera.stop_recording()
 
 #while True:
 	#pegando o frame atual da webcam
