@@ -56,32 +56,32 @@ class CarHandler():
 
 	# Vira o servomotor em um ângulo específico dado em graus
 	def setAngle(self, angle):
-		print "Virando ", angle
+		print("Virando", angle)
 		duty = angle / 18.0 + 2.0
 		GPIO.output(self.dir, GPIO.HIGH)
 		self.pwm.ChangeDutyCycle(duty)
 
 	# Função para mover o carrinho pra frente
 	def forward(self):
-		print "Andando para frente"
+		print("Andando para frente")
 		GPIO.output(self.IN1, GPIO.HIGH)
 		GPIO.output(self.IN2, GPIO.LOW)
 
 	# Função para mover o carrinho pra trás
 	def backward(self):
-		print "Andando para trás"
+		print("Andando para trás")
 		GPIO.output(self.IN1, GPIO.LOW)
 		GPIO.output(self.IN2, GPIO.HIGH)
 
 	# Função para parar o carrinho
 	def stop(self):
-		print "Parando o carro"
+		print("Parando o carro")
 		GPIO.output(self.IN1, GPIO.HIGH)
 		GPIO.output(self.IN2, GPIO.HIGH)
 
 	# Função para colocar o carrinho em ponto-morto
 	def neutral(self):
-		print "Ponto Morto"
+		print("Ponto Morto")
 		GPIO.output(self.IN1, GPIO.LOW)
 		GPIO.output(self.IN2, GPIO.LOW)
 
