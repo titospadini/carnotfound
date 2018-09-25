@@ -85,32 +85,19 @@ import time
  
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
-print("camera\n")
-
 camera.resolution = (640, 480)
-print("resolution\n")
-
 camera.framerate = 32
-print("framerate\n")
-
 rawCapture = PiRGBArray(camera, size=(640, 480))
-print("rawCapture\n")
  
 # allow the camera to warmup
 time.sleep(0.1)
-print("sleep\n")
  
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-	print("capture_continuous\n")
 	# grab the raw NumPy array representing the image, then initialize the timestamp
 	# and occupied/unoccupied text
 	image = frame.array
-	print("image\n")
 
-	# clear the stream in preparation for the next frame
-	
-	print("truncate\n")
  
 	# show the frame
 	# cv2.imshow("Frame", image)
@@ -146,6 +133,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 		# GPIO.output(GPIOMotor2, GPIO.LOW)
 		exit(1)   
 
+	# clear the stream in preparation for the next frame
 	rawCapture.truncate(0)
 
 # -------------------------------------------------------------
