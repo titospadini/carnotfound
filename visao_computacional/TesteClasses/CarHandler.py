@@ -39,11 +39,11 @@ class CarHandler():
 		# Estou definindo de forma fixa a pinagem, pois não é 
 		# a intenção que isso mude depois
 		# Pino de controle da ponte HH:
-		self.IN1 = 12 
+		self.IN1 = 10
 		self.IN2 = 16
 
 		# Pino para PWM do servomotor de direção:
-		self.dir = 8
+		self.dir = 12
 
 		# Configurando o GPIO e definindo os pinos de saída:
 		GPIO.setwarnings(False)
