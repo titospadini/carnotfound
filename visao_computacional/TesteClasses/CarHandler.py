@@ -9,7 +9,7 @@
 # =============================================================
 #
 # DESCRICAO: CarHandler.py 
-# Python versao: 2
+# Python versao: 3
 #
 # Classe que inicia e manipula o GPIO do Rapsberry.
 # Aqui é possível mover o carrinho para frente, para trás e 
@@ -28,6 +28,7 @@
 import sys
 import time
 import RPi.GPIO as GPIO
+#import pigpio as HGPIO
 
 class CarHandler():
 
@@ -41,7 +42,7 @@ class CarHandler():
 		# Pino de controle da ponte HH:
 		self.IN1 = 10
 		self.IN2 = 16
-
+		
 		# Pino para PWM do servomotor de direção:
 		self.dir = 12
 
@@ -50,9 +51,12 @@ class CarHandler():
 		GPIO.setmode(GPIO.BOARD)
 		GPIO.setup(self.IN1, GPIO.OUT)
 		GPIO.setup(self.IN2, GPIO.OUT)
+
+		# Configurando o PWM
 		GPIO.setup(self.dir, GPIO.OUT)
 		self.pwm = GPIO.PWM(self.dir, 50)
 		self.pwm.start(0)
+		#self.hpi = HGPIO.pi()
 
 	# Vira o servomotor em um ângulo específico dado em graus
 	def setAngle(self, angle):
@@ -60,6 +64,7 @@ class CarHandler():
 		duty = angle / 18.0 + 2.0
 		GPIO.output(self.dir, GPIO.HIGH)
 		self.pwm.ChangeDutyCycle(duty)
+		#self.hpi.hardware_PWM(self.dir, 60, 90*10000)
 
 	# Função para mover o carrinho pra frente
 	def forward(self):

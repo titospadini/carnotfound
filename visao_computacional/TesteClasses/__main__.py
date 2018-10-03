@@ -9,29 +9,35 @@
 # =============================================================
 #
 # DESCRICAO: __main__.py 
-# Python versao: 2
+# Python versao: 3
 #
-# Arquivo principal que vai instânciar os objetos das classes CarHandler e ImageHandler para mover o carrinho de acordo com as imagens obtidas pela webcam
+# Arquivo principal que vai instânciar os objetos das classes 
+# CarHandler e ImageHandler para mover o carrinho de acordo 
+# com as imagens obtidas pela webcam
 #
 # =============================================================
 
-from CarHandler import CarHandler
+import numpy as np
+from picamera.array import PiRGBArray
 from picamera import PiCamera
-#from ImageHandler import ImageHandler
-import platform
-#import cv2
 import time
+from CarHandler import CarHandler
+from ImageHandler import ImageHandler
 
-#instanciando os objetos (o construtor da classe CarHandler precisa das portas do GPIO que serão utilizadas)
-#objImageHandler = ImageHandler() # Objeto para ImageHandler
+# INSTANCIANDO OBJETOS DAS CLASSES IMAGEHANDLER E CARHANDLER
+objImageHandler = ImageHandler() # Objeto para ImageHandler
 objCarHandler = CarHandler()
-#webcam = cv2.VideoCapture(0)
 
+#PREPARANDO A CAMERA
 camera = PiCamera() # Objeto para a Pi Camera
-camera.rotation = 180 # Rotação da câmera porque ela está de ponta cabeça
-camera.framerate = 25 # Taxa de captura de quadros
+camera.resolution = (640, 480)
+camera.framerate = 32
+rawCapture = PiRGBArray(camera, size=(640, 480))
+time.sleep(0.1)
+print("CAMERA PREPARADA\n")
 
-camera.start_recording('/home/pi/Desktop/Pedro/video_teste_2018-09-14.h264')
+time.sleep(0.5)
+print("Executando rotina de teste dos motores.")
 
 objCarHandler.setAngle(90)
 time.sleep(10) # Espera 10 segundoa antes de sair andando para dar tempo de eu sair lá fora
@@ -40,45 +46,52 @@ time.sleep(2)
 objCarHandler.setAngle(60)
 time.sleep(2)
 objCarHandler.setAngle(90)
-time.sleep(1)
+time.sleep(2)
 objCarHandler.setAngle(115)
-time.sleep(1)
+time.sleep(2)
 objCarHandler.setAngle(90)
 time.sleep(2)
 objCarHandler.stop()
-time.sleep(1)
+time.sleep(2)
 objCarHandler.backward()
 time.sleep(2)
 objCarHandler.neutral()
-time.sleep(1)
+
+print("Fom da rotina de teste dos motores.")
+time.sleep(0.5)
+print("Iniciando rotina de tomada de decisão a partir das imagens da câmera.")
+
+#PEGANDO FRAME POR FRAME PARA TRATAR E TOMAR UMA DECISAO
+for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+	
+	image = frame.array
+	print("Frame Capturado")
+	#DEPOIS DE CAPTURAR O FRAME EU TENTO TRATA-LO
+	try:
+		#print("Tentando tratar frame")
+		Direcao, QtdeLinhas = objImageHandler.tratarImagem(image)
+
+		#DEPOIS DE TRATAR, EU TOMO UMA DECISAO
+		if (QtdeLinhas == 0):
+			print("PARE")
+			objCarHandler.stop();
+		else:
+			objCarHandler.forward();
+			if (Direcao > 0):
+				print("DIREITA")
+				objCarHandler.setAngle(115)
+			if (Direcao < 0):
+				print("ESQUERDA")
+				objCarHandler.setAngle(75)
+			if (Direcao == 0):
+				print("EM FRENTE")
+				objCarHandler.setAngle(90)
+		#print("Frame tratado")
+	except (KeyboardInterrupt):
+		objCarHandler.cleanupPins()
+		exit(1)
+
+	rawCapture.truncate(0)	
 
 # Libera os pinos
 objCarHandler.cleanupPins()
-
-# Finaliza gravação
-camera.stop_recording()
-
-#while True:
-	#pegando o frame atual da webcam
-	# s, frame = webcam.read() 
-
-	#tratando o frame para saber onde está a bolinha vermelha
-	# binRed = objImageHandler.tratarFrame(frame)
-
-	#exibindo a imagem tratada (só use esse comando se seu raspberry tiver interface gráfica)
-	#objImageHandler.exibirCaptura(binRed)
-
-	#Verificando qual é a situacao da bolinha em relacao ao frame anterior e de acordo com a situacao, movendo o carro de um jeito diferente
-	#situacao = objImageHandler.verificarSituacao(binRed)
-	#if situacao == "naoencontrado":
-	#	objCarHandler.stop() #para o carro
-	#else:
-	#	objCarHandler.forward() #acelera
-	#	if situacao == "direita":
-	#		objCarHandler.setAngle(75) #vira pra direita
-	#	elif situacao == "esquerda":
-	#		objCarHandler.setAngle(115) #vira pra esquerda
-	#	else:
-	#		objCarHandler.setAngle(90) #anda reto
-	#time.sleep(0.1)
-	
