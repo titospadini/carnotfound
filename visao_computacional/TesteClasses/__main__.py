@@ -2,17 +2,17 @@
 # =============================================================
 #
 #                       -- ROBOCAR --
-# 
+#
 # TIME: CarNotFound
 # CARRO: 404
-#  
+#
 # =============================================================
 #
-# DESCRICAO: __main__.py 
+# DESCRICAO: __main__.py
 # Python versao: 3
 #
-# Arquivo principal que vai instânciar os objetos das classes 
-# CarHandler e ImageHandler para mover o carrinho de acordo 
+# Arquivo principal que vai instânciar os objetos das classes
+# CarHandler e ImageHandler para mover o carrinho de acordo
 # com as imagens obtidas pela webcam
 #
 # =============================================================
@@ -26,7 +26,8 @@ from ImageHandler import ImageHandler
 
 # INSTANCIANDO OBJETOS DAS CLASSES IMAGEHANDLER E CARHANDLER
 objImageHandler = ImageHandler() # Objeto para ImageHandler
-objCarHandler = CarHandler()
+
+objControlHandler = ControlHandler()
 
 #PREPARANDO A CAMERA
 camera = PiCamera() # Objeto para a Pi Camera
@@ -63,35 +64,35 @@ print("Iniciando rotina de tomada de decisão a partir das imagens da câmera.")
 
 #PEGANDO FRAME POR FRAME PARA TRATAR E TOMAR UMA DECISAO
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-	
+
 	image = frame.array
 	print("Frame Capturado")
 	#DEPOIS DE CAPTURAR O FRAME EU TENTO TRATA-LO
 	try:
 		#print("Tentando tratar frame")
 		Direcao, QtdeLinhas = objImageHandler.tratarImagem(image)
-
+		objControlHandler.decisao(Direcao, QtdeLinhas)
 		#DEPOIS DE TRATAR, EU TOMO UMA DECISAO
-		if (QtdeLinhas == 0):
-			print("PARE")
-			objCarHandler.stop();
-		else:
-			objCarHandler.forward();
-			if (Direcao > 0):
-				print("DIREITA")
-				objCarHandler.setAngle(115)
-			if (Direcao < 0):
-				print("ESQUERDA")
-				objCarHandler.setAngle(75)
-			if (Direcao == 0):
-				print("EM FRENTE")
-				objCarHandler.setAngle(90)
+#		if (QtdeLinhas == 0):
+#			print("PARE")
+#			objCarHandler.stop()
+#		else:
+#			objCarHandler.forward()
+#			if (Direcao > 0):
+#				print("DIREITA")
+#				objCarHandler.setAngle(115)
+#			if (Direcao < 0):
+#				print("ESQUERDA")
+#				objCarHandler.setAngle(75)
+#			if (Direcao == 0):
+#				print("EM FRENTE")
+#				objCarHandler.setAngle(90)
 		#print("Frame tratado")
 	except (KeyboardInterrupt):
 		objCarHandler.cleanupPins()
 		exit(1)
 
-	rawCapture.truncate(0)	
+	rawCapture.truncate(0)
 
 # Libera os pinos
 objCarHandler.cleanupPins()
