@@ -31,7 +31,6 @@ import RPi.GPIO as GPIO
 import pigpio 
 
 class CarHandler():
-
 	# O construtor da classe recebe quais serão os pinos que vão 
 	# acionar o GPIO
 	def __init__(self):
@@ -41,13 +40,10 @@ class CarHandler():
 		# a intenção que isso mude depois
 		# Pino de controle da ponte HH:
 		self.IN1 = 16 # GPIO23
-		self.IN2 = 18 # GPIO22
-		
+		self.IN2 = 18 # GPIO22		
 		self.dir = 13
 		self.angle_max = 110
 		self.angle_min = 70
-		
-
 		# Configurando o GPIO e definindo os pinos de saída:
 		GPIO.setwarnings(False)
 		GPIO.setmode(GPIO.BOARD)
@@ -55,7 +51,6 @@ class CarHandler():
 		GPIO.setup(self.IN2, GPIO.OUT)
 		GPIO.output(self.IN1, GPIO.LOW)
 		GPIO.output(self.IN2, GPIO.LOW)
-		
 		
 
 	# Vira o servomotor em um ângulo específico dado em graus
@@ -117,7 +112,6 @@ class CarHandler():
 		print("Fom da rotina de teste dos motores.")
 		time.sleep(0.5)
 		
-
 	def Direcao(self, angle,pi):
 		
 		pi.hardware_PWM(13, 50, 0)
