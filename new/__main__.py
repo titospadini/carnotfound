@@ -148,6 +148,7 @@ while(True):
 		coef = objControlHandler.Linearizacao(xi, yi)
 		a2 = coef[0]
 		a1 = coef[1]
+		print('a1: ' + str(a1))
 		angle = int(180.0 - np.degrees(np.arctan(a1)))
 		print('angle ' + str(angle))
 
