@@ -32,9 +32,9 @@ class  ControlHandler():
 		return angle
 			
 	def Linearizacao(self,x,y):
-		#V = np.array([x**1, x**0]).transpose()
-		#coef = ((np.linalg.inv((V.transpose()).dot(V))).dot(V.transpose())).dot(y)
-		coef = np.polyfit(x,y,1,full=False)		
+		V = np.array([x**1, x**0]).transpose()
+		coef = ((np.linalg.inv((V.transpose()).dot(V))).dot(V.transpose())).dot(y)
+		#coef = np.polyfit(x,y,1,full=False)		
 		return coef
 			
 			
