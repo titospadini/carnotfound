@@ -59,7 +59,7 @@ pi = pigpio.pi()
 # LOG DE DADOS
 ARQUIVO_CSV = 'dados_'+str(datetime.datetime.now())+'.csv'
 csvfile = open(DATA_PATH + ARQUIVO_CSV,'w')
-writeRow(csvfile,'x_media','x','y','referencia','ang_control','angulo')#cabeçalho
+writeRow(csvfile,'y','x','beta','erro')#cabeçalho
  
 #MEDIA MOVEL
 mediaMovelPosicao = MediaMovel(MEDIA_MOVEL_POSICAO_SIZE,MEDIA_MOVEL_VALOR_POSICAO_INICIAL)
@@ -99,7 +99,7 @@ while(True):
 	try:
 		start = time.time()
 		image = vs.read()#lê frame da VideoStream		
-		image = image[ROI_Y1:ROI_Y2,ROI_X1:ROI_X2]#pega região de interesse
+		
 		
 		#PARA SALVAR O VIDEO ORIGINAL
 		#outOriginal.write(image)#salva frame em vídeo
@@ -111,24 +111,30 @@ while(True):
 		#outPreProc.write(image)
 		
 		#DETECTA CONTORNO
-		x_contorno, y_contorno, qtdeContornos = objImageHandler.deteccaoDeCurvas(image)	
+		x_contorno, y_contorno= objImageHandler.deteccaoDeCurvas(image)	
 		
 		#MEDIA MOVEL DE X
-		x_contorno = mediaMovelPosicao.update(x_contorno)
+		#x_contorno = mediaMovelPosicao.update(x_contorno)
 		#print('x contorno: '+ str(x_contorno))
 		
 		#UTILIZA A LINEARIZACAO DA CLASSE CONTROLE
-		angle = objControlHandler.Controle(x_contorno, x_target)
-
+		erro, beta, alfa = objControlHandler.Controle(x_contorno)
+		
 		#ENVIA ANGULO AO MOTOR
-		objCarHandler.Direcao(angle,pi)#enviando ângulo detectado por imageHandler diretamente
+		objCarHandler.Direcao(90,pi)#enviando ângulo detectado por imageHandler diretamente
 	
+		
+		
 		#ESCREVE DADOS
-		writeRow(csvfile,x_contorno,x_contorno_original,y_contorno,x_target,angle,angle)
+		writeRow(csvfile,y_contorno,x_contorno,beta, erro)
 
 		#COMPUTA TEMPO DE PROCESSAMENTO
 		elapsed_time_fl = (time.time() - start)
-
+		print('y_c:  ' + str(y_contorno))
+		print('x_c:  ' + str(x_contorno))
+		print('beta: ' + str(beta))
+		print('alfa: ' + str(alfa))
+		print('erro: ' + str(erro))
 		#CALCULO DE FPS
 		fps = 1/elapsed_time_fl
 		print('FPS: ' + str(fps))

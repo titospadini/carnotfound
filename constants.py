@@ -4,7 +4,7 @@ import numpy as np
 CAMERA_RESOLUCAO = (320, 240)
 CAMERA_FRAMERATE = 32
 
-LimiarBinarizacao =  200
+LimiarBinarizacao =  30
 AreaContornoLimiteMin = 1000 #experimental
 KERNEL_GAUSSIAN_BLUR = (21,21)
 QUANTIDADE_ITERACOES_DILATE = 2
@@ -21,6 +21,11 @@ ROI_Y2 = CAMERA_RESOLUCAO[1]
 
 ROI_WIDTH = ROI_X2 - ROI_X1
 ROI_HEIGTH = ROI_Y2 - ROI_Y1
+
+Y_REF = ROI_HEIGTH//2
+X_REF = ROI_WIDTH//2
+
+ANG_ERRO_MAX = 90-np.degrees(np.arctan(Y_REF/X_REF))
 
 DATA_PATH = './'
 ARQUIVO_CSV = 'teste.csv'
