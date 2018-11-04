@@ -57,9 +57,9 @@ objControlHandler = ControlHandler()
 pi = pigpio.pi()
 
 # LOG DE DADOS
-ARQUIVO_CSV = 'dados_'+str(datetime.datetime.now())+'.csv'
-csvfile = open(DATA_PATH + ARQUIVO_CSV,'w')
-writeRow(csvfile,'x_media','x','y','referencia','ang_control','angulo')#cabeçalho
+#ARQUIVO_CSV = 'dados_'+str(datetime.datetime.now())+'.csv'
+#csvfile = open(DATA_PATH + ARQUIVO_CSV,'w')
+#writeRow(csvfile,'x_media','x','y','referencia','ang_control','angulo')#cabeçalho
  
 #MEDIA MOVEL
 mediaMovelPosicao = MediaMovel(MEDIA_MOVEL_POSICAO_SIZE,MEDIA_MOVEL_VALOR_POSICAO_INICIAL)
@@ -154,7 +154,7 @@ while(True):
 		objCarHandler.Direcao(angle,pi)#enviando ângulo detectado por imageHandler diretamente
 	
 		#ESCREVE DADOS
-		writeRow(csvfile,x_contorno,x_contorno_original,y_contorno,x_target,angle,angle)
+		#writeRow(csvfile,x_contorno,x_contorno_original,y_contorno,x_target,angle,angle)
 
 		#COMPUTA TEMPO DE PROCESSAMENTO
 		elapsed_time_fl = (time.time() - start)
