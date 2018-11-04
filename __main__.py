@@ -57,9 +57,10 @@ objControlHandler = ControlHandler()
 pi = pigpio.pi()
 
 # LOG DE DADOS
-ARQUIVO_CSV = 'dados_'+str(datetime.datetime.now())+'.csv'
-csvfile = open(DATA_PATH + ARQUIVO_CSV,'w')
-writeRow(csvfile,'y','x','beta','erro')#cabeçalho
+#ARQUIVO_CSV = 'dados_'+str(datetime.datetime.now())+'.csv'
+#csvfile = open(DATA_PATH + ARQUIVO_CSV,'w')
+#writeRow(csvfile,'y_c', 'x_c', 'beta', 'alfa','erro','Sinal Controle','FPS')#cabeçalho
+ 
  
 #MEDIA MOVEL
 mediaMovelPosicao = MediaMovel(MEDIA_MOVEL_POSICAO_SIZE,MEDIA_MOVEL_VALOR_POSICAO_INICIAL)
@@ -118,15 +119,15 @@ while(True):
 		#print('x contorno: '+ str(x_contorno))
 		
 		#UTILIZA A LINEARIZACAO DA CLASSE CONTROLE
-		erro, beta, alfa = objControlHandler.Controle(x_contorno)
+		erro, beta, alfa, sinal_controle = objControlHandler.Controle(x_contorno)
 		
 		#ENVIA ANGULO AO MOTOR
-		objCarHandler.Direcao(90,pi)#enviando ângulo detectado por imageHandler diretamente
+		objCarHandler.Direcao(sinal_controle,pi)#enviando ângulo detectado por imageHandler diretamente
 	
 		
 		
 		#ESCREVE DADOS
-		writeRow(csvfile,y_contorno,x_contorno,beta, erro)
+		#writeRow(csvfile,y_contorno,x_contorno,beta,alfa,erro,sinal_controle)
 
 		#COMPUTA TEMPO DE PROCESSAMENTO
 		elapsed_time_fl = (time.time() - start)
@@ -135,6 +136,7 @@ while(True):
 		print('beta: ' + str(beta))
 		print('alfa: ' + str(alfa))
 		print('erro: ' + str(erro))
+		print('Controle: '+str(sinal_controle))
 		#CALCULO DE FPS
 		fps = 1/elapsed_time_fl
 		print('FPS: ' + str(fps))
@@ -149,7 +151,7 @@ while(True):
 		exit(1)
 
 #ENCERRA TUDO
-csvfile.close()#fecha arquivo ao sair do loop
+#csvfile.close()#fecha arquivo ao sair do loop
 objCarHandler.Direcao(90, pi) #retorna rodas
 objCarHandler.stop()
 objCarHandler.cleanupPins()

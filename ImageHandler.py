@@ -59,7 +59,7 @@ class ImageHandler():
 			CoordenadaYCentroContorno = int(M['m01']/M['m00'])
 		else:
 			pass  	
-			
+		'''	
 		#desenha círculo na centróide
 		cv2.circle(self.orgImg,(CoordenadaXCentroContorno,CoordenadaYCentroContorno), 5, (0,0,255), -1)
 		
@@ -70,7 +70,7 @@ class ImageHandler():
 		#mostra imagem com referências
 		cv2.imshow('roi', self.orgImg)
 		cv2.waitKey(1)
-		
+		'''
 		return CoordenadaXCentroContorno, CoordenadaYCentroContorno
 
 

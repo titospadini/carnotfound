@@ -48,6 +48,7 @@ THETA_MIN = 60
 
 Kp_turn = 20
 Kp_line = 10
+Kp = 30
 Kd = 0
 Ki = 0
 

@@ -18,7 +18,7 @@ from constants import *
 class  ControlHandler():
 
 	def Controle(self, x_contorno):
-		
+		#Calcula o angulo do centroide com relacao ao centro da imagem
 		dX = X_REF - x_contorno
 		if dX == 0:
 			beta = 0
@@ -33,8 +33,17 @@ class  ControlHandler():
 			else:
 				erro = beta/ANG_ERRO_MAX
 		
-		#TODO: implementar sinal de controle
-		return erro, beta, alfa
+		
+		#Controlador PD
+		P = Kp*erro
+		
+			
+		#Sinal de controle - 90 equivale a roda alinhada para frente
+		
+		sinal_controle = 90 + P 
+		
+			
+		return erro, beta, alfa, sinal_controle
 			
 			 
 			

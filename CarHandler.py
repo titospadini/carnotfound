@@ -112,7 +112,7 @@ class CarHandler():
 		print("Fom da rotina de teste dos motores.")
 		time.sleep(0.5)
 		
-	def Direcao(self, angle,pi):
+	def Direcao(self, angle, pi):
 		
 		pi.hardware_PWM(13, 50, 0)
 		#print(pi.get_PWM_frequency(13))
