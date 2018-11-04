@@ -28,7 +28,7 @@ class ImageHandler():
 		#cv2.waitKey(1)
 		img = cv2.threshold(img, LimiarBinarizacao, 255, cv2.THRESH_BINARY)[1]
 		#img = cv2.dilate(img, None, iterations = QUANTIDADE_ITERACOES_DILATE)
-		#img = cv2.bitwise_not(img)
+		img = cv2.bitwise_not(img)
 		img = cv2.morphologyEx(img, cv2.MORPH_OPEN, KERNEL_OPENING)
 #		cv2.imshow('final',img)
 #		cv2.waitKey(1)

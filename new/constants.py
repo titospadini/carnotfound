@@ -4,7 +4,7 @@ import numpy as np
 CAMERA_RESOLUCAO = (320, 240)
 CAMERA_FRAMERATE = 32
 
-LimiarBinarizacao =  200
+LimiarBinarizacao =  30
 AreaContornoLimiteMin = 1000 #experimental
 KERNEL_GAUSSIAN_BLUR = (21,21)
 QUANTIDADE_ITERACOES_DILATE = 2
