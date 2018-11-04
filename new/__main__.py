@@ -148,9 +148,9 @@ while(True):
 		coef = objControlHandler.Linearizacao(xi, yi)
 		a2 = coef[0]
 		a1 = coef[1]
-		angle = 180.0 - np.degrees(np.arctan(a1))
-		print('angle' + str(angle))
-		
+		angle = int(180.0 - np.degrees(np.arctan(a1)))
+		print('angle ' + str(angle))
+
 		#ENVIA ANGULO AO MOTOR
 		objCarHandler.Direcao(angle,pi)#enviando ângulo detectado por imageHandler diretamente
 	
